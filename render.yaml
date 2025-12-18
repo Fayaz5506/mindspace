@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: mindspace-server
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: mindspace-db
+          property: connectionString
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        value: https://your-vercel-app.vercel.app
+
+databases:
+  - name: mindspace-db
+    databaseName: mindspace
+    plan: free

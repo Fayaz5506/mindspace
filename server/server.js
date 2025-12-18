@@ -40,10 +40,32 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express.json({ limit: '10kb' })); // Body limit to prevent DOS
+
+const devOrigins = ['http://localhost:5173', 'http://localhost:5174'];
+const allowedOrigin = process.env.NODE_ENV === 'production'
+    ? process.env.FRONTEND_URL
+    : devOrigins;
+
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : 'http://localhost:5173',
-    credentials: true
+    origin: allowedOrigin,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Ensure preflight requests are handled: echo allowed origin and respond to OPTIONS
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    const isAllowed = (Array.isArray(allowedOrigin) && allowedOrigin.includes(origin)) || origin === allowedOrigin;
+    if (isAllowed) {
+        res.header('Access-Control-Allow-Origin', origin);
+        res.header('Access-Control-Allow-Credentials', 'true');
+    }
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+    next();
+});
 
 // Connect Database
 connectDB();
