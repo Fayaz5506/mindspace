@@ -1,0 +1,81 @@
+:root {
+  --primary: #6C5CE7;
+  --primary-glow: rgba(108, 92, 231, 0.4);
+  --secondary: #00B894;
+  --accent: #FDCB6E;
+  --bg-dark: #0A0C14;
+  --bg-card: #151926;
+  --bg-glass: rgba(21, 25, 38, 0.7);
+  --text-main: #FFFFFF;
+  --text-muted: #8E9AAF;
+  --gradient-main: linear-gradient(135deg, #6C5CE7 0%, #a29bfe 100%);
+  --shadow-soft: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+  --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(12px);
+
+  /* Mood Colors */
+  --mood-happy: #FFD93D;
+  --mood-calm: #6BCB77;
+  --mood-sad: #4D96FF;
+  --mood-anxious: #FF6B6B;
+}
+
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  border: var(--border-glass);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Utility for layout alignment matching reference */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
